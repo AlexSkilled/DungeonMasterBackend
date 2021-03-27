@@ -38,7 +38,7 @@ public class TableGameController {
 	
 	@PostMapping()
 	public ResponseEntity<?> post(@RequestBody TableGameDTO dto) {
-		TableGame createdTableGame = tableGameService.add(new TableGame(dto));
+		TableGame createdTableGame = tableGameService.ADD(new TableGame(dto));
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
 				.buildAndExpand(createdTableGame.getId())

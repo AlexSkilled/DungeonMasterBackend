@@ -22,7 +22,7 @@ public class TableGameService {
 		return repository.findById(id);
 	}
 	
-	public TableGame add(TableGame description) {
+	public TableGame ADD(TableGame description) {
 		return repository.save(description);		
 	}
 }

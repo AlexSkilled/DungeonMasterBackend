@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.dungeonmaster.entity.User;
+import com.dungeonmaster.entity.user.User;
 import com.dungeonmaster.modelDto.user.LoginForm;
 import com.dungeonmaster.modelDto.user.UserDTO;
-import com.dungeonmaster.service.UserService;
+import com.dungeonmaster.service.user.UserService;
 
 @RestController
 @RequestMapping("/")

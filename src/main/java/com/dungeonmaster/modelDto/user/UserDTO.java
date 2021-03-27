@@ -1,6 +1,6 @@
 package com.dungeonmaster.modelDto.user;
 
-import com.dungeonmaster.entity.User;
+import com.dungeonmaster.entity.user.User;
 
 public class UserDTO {
 
@@ -19,7 +19,7 @@ public class UserDTO {
 	
 	public UserDTO(User entity) {
 		this.id = entity.getId();
-		this.nickName = entity.getNickName();
+		this.nickName = entity.getUsername();
 		this.email = entity.getEmail();
 	}
 
