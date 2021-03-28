@@ -16,7 +16,7 @@ dependencies {
 	implementation 			'org.springframework.boot:spring-boot-starter-web'
 	
 	implementation group: 	'org.springframework.boot', 	name: 'spring-boot-starter-security',	version: '2.3.9.RELEASE'
-	
+	implementation group: 	'org.springframework.boot', 	name: 'spring-boot-starter-jdbc', 		version: '2.3.9.RELEASE'
 	implementation group: 	'org.springframework.boot', 	name: 'spring-boot-starter-data-jpa', 	version: '2.1.2.RELEASE'
 	implementation group: 	'org.springframework.boot', 	name: 'spring-boot-starter-data-rest', 	version: '2.1.2.RELEASE'
 	implementation group: 	'org.springframework.boot', 	name: 'spring-boot-starter-tomcat', 	version: '2.1.2.RELEASE'
@@ -26,6 +26,7 @@ dependencies {
 	implementation group: 	'org.springframework.security', name: 'spring-security-config', 		version: '4.2.20.RELEASE'
 	
 	implementation group: 	'org.postgresql', 				name: 'postgresql', 					version: '42.2.10'
+	
 	//implementation group: 	'org.flywaydb', 				name: 'flyway-core'
 	
 	developmentOnly 		'org.springframework.boot:spring-boot-devtools'
