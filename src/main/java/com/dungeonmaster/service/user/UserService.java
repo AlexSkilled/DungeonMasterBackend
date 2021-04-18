@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import com.dungeonmaster.domain.user.Role;
 import com.dungeonmaster.domain.user.User;
+import com.dungeonmaster.errros.user.InvalidUserData;
+import com.dungeonmaster.errros.user.UserError;
 import com.dungeonmaster.modelDto.user.LoginForm;
 import com.dungeonmaster.modelDto.user.UserDTO;
 import com.dungeonmaster.repository.user.RoleRepository;
@@ -70,22 +72,27 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public boolean saveUser(UserDTO dto) {
+    public void saveUser(UserDTO dto) throws InvalidUserData {
         User user = null;
         
         user = userRepository.findByUsername(dto.getUsername());
 
         if (user != null) {
-            return false;
+            throw new InvalidUserData(UserError.UserAlreadyExists);
         }
-
+        if (dto.getUsername().equals("")) {
+        	throw new InvalidUserData(UserError.InvalidName);
+        }
+        if (dto.getEmail().equals("")) {
+            throw new InvalidUserData(UserError.InvalidEmail);
+        }
+        
         user = new User(dto);
         
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         
         userRepository.save(user);
-        return true;
     }
 
     public boolean deleteUser(Long userId) {
@@ -96,7 +103,7 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public List<User> usergtList(Long idMin) {
+    public List<User> userList(Long idMin) {
         return entityManager.createQuery("SELECT u FROM user u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", idMin).getResultList();
     }

@@ -29,6 +29,12 @@ public class HomeCotroller {
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody LoginForm dto) {
+		try {
+			Thread.sleep(1500);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		
 		boolean logged = userService.login(dto);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/")
@@ -40,6 +46,11 @@ public class HomeCotroller {
 	
 	@PostMapping("/hello")
 	public ResponseEntity<?> isActive() {
+		try {
+			Thread.sleep(2500);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 }
