@@ -3,7 +3,7 @@ package com.dungeonmaster.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,17 +48,18 @@ public class UserController {
     
     @PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody LoginForm dto) {
-    	UserDTO user = userService.findByUsername(dto.getLogin());
+    	UserDTO user = null;
+    	try {
+    		user =  userService.findByEmail(dto.getLogin());
+    	} catch(UsernameNotFoundException e) {
+    		try {
+    			user =  userService.findByUsername(dto.getLogin());
+        	} catch(UsernameNotFoundException innerE) {
+        		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        	}
+    		
+    	}
+    	
 		return new ResponseEntity<>(user.getUsername(), HttpStatus.OK);
-	}
-    
-    @GetMapping("/hello")
-	public ResponseEntity<?> isActive() {
-		try {
-			Thread.sleep(1500);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
-		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 }

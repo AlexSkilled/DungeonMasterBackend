@@ -26,7 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
     	httpSecurity.csrf().disable()
 	        .authorizeRequests()
-	        	.antMatchers("/User/hello", "/User/registration").permitAll() //not().fullyAuthenticated() // для регистрации позволяем всё
+	        	.antMatchers("/hello", 
+	        			"/User/registration", "/User/login").permitAll() //not().fullyAuthenticated() // для регистрации позволяем всё
 		        .anyRequest().authenticated()
 		        .and().httpBasic()
 		        .and().sessionManagement().disable();
