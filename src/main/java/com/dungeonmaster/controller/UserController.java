@@ -3,12 +3,14 @@ package com.dungeonmaster.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dungeonmaster.errros.user.InvalidUserData;
+import com.dungeonmaster.modelDto.user.LoginForm;
 import com.dungeonmaster.modelDto.user.UserDTO;
 import com.dungeonmaster.service.user.UserService;
 
@@ -33,20 +35,26 @@ public class UserController {
     	} catch(InvalidUserData e) {
     		switch (e.getError()) {
     		case UserAlreadyExists:
-    			return new ResponseEntity<>(new String("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚"), HttpStatus.OK);
+    			return new ResponseEntity<>(new String("Ошибка регистрации. Пользователь существует."), HttpStatus.OK);
     		case InvalidEmail:
-    			return new ResponseEntity<>(new String("РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚С‹"), HttpStatus.OK);
+    			return new ResponseEntity<>(new String("Ошибка регистрации. Неверный Email"), HttpStatus.OK);
     		case InvalidName:
-    			return new ResponseEntity<>(new String("РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ РёРјРµРЅРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"), HttpStatus.OK);
+    			return new ResponseEntity<>(new String("Ошибка регистрации. Неверное имя"), HttpStatus.OK);
     		}
     	}
-
-        return new ResponseEntity<>("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓСЃРїРµС€РЅРѕ СЃРѕР·РґР°РЅ", HttpStatus.CREATED);
+    	UserDTO user = userService.findByUsername(dto.getUsername());
+        return new ResponseEntity<>(user.getUsername(), HttpStatus.CREATED);
     }
     
-    @PostMapping("/hello")
+    @PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody LoginForm dto) {
+    	UserDTO user = userService.findByUsername(dto.getLogin());
+		return new ResponseEntity<>(user.getUsername(), HttpStatus.OK);
+	}
+    
+    @GetMapping("/hello")
 	public ResponseEntity<?> isActive() {
-    	try {
+		try {
 			Thread.sleep(1500);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
