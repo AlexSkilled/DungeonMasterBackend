@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,11 +56,35 @@ public class UserController {
     		try {
     			user =  userService.findByUsername(dto.getLogin());
         	} catch(UsernameNotFoundException innerE) {
-        		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        		return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
+        	}
+    		
+    	}
+    	
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+    
+    @GetMapping("/hello")
+    public ResponseEntity<?> hello(@RequestBody LoginForm dto) {
+    	UserDTO user = null;
+    	try {
+    		user =  userService.findByEmail(dto.getLogin());
+    	} catch(UsernameNotFoundException e) {
+    		try {
+    			user =  userService.findByUsername(dto.getLogin());
+        	} catch(UsernameNotFoundException innerE) {
+        		return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
         	}
     		
     	}
     	
 		return new ResponseEntity<>(user.getUsername(), HttpStatus.OK);
-	}
+    }
+    
+    @GetMapping("/foo")
+    public ResponseEntity<?> hello() {
+    	return new ResponseEntity<>(HttpStatus.OK);
+    	
+    }
+    
 }
