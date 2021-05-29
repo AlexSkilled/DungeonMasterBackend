@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id "base"
+	id "org.flywaydb.flyway" version "7.9.1"
 }
 
 group = 'com.dungeonmaster'
@@ -41,3 +42,9 @@ test {
 	useJUnitPlatform()
 }
 
+flyway {
+    user = 'dmadmin'
+    password = '111111'
+    driver = 'org.postgresql.Driver'
+	url = 'jdbc:postgresql://localhost:5432/dungeon-master'
+}
