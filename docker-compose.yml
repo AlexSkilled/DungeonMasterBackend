@@ -12,7 +12,9 @@ services:
       - SPRING_DATASOURCE_PASSWORD=111111
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update  
   db:
-    image: postgres:13.3-alpine
+    image: postgres:13.3-alpine 
+    ports:
+      - "500:500"
     environment:
       POSTGRES_USER: 'dmadmin'
       POSTGRES_PASSWORD: '111111'
