@@ -3,20 +3,29 @@ services:
   app:
     build: .
     ports:
-      - "8080:8080"
+      - 8080:8080
     depends_on: 
-      - db
+      - flyway
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/dungeon-master
       - SPRING_DATASOURCE_USERNAME=dmadmin
       - SPRING_DATASOURCE_PASSWORD=111111
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update  
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=none
+  flyway:
+    image: flyway/flyway
+    volumes:
+      - .:/src/main/resources/db/migration
+    command: -url=jdbc:postgresql://db:5432/dungeon-master -schemas=dungeon-master -user=dmadmin -password=111111 -connectRetries=60 -target=1 migrate
+    depends_on:
+      - db
   db:
-    image: postgres:13.3-alpine 
-    ports:
-      - "500:500"
+    image: postgres 
     environment:
-      POSTGRES_USER: 'dmadmin'
-      POSTGRES_PASSWORD: '111111'
-      POSTGRES_DB: 'dungeon-master'
+      POSTGRES_USER: dmadmin
+      POSTGRES_PASSWORD: 111111
+      POSTGRES_DB: dungeon-master
+  
+  
+  
+  
       
