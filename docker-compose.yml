@@ -13,8 +13,6 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=none
   flyway:
     image: flyway/flyway
-    volumes:
-      - .:/src/main/resources/db/migration
     command: -url=jdbc:postgresql://db:5432/dungeon-master -schemas=dungeon-master -user=dmadmin -password=111111 -connectRetries=60 -target=1 migrate
     depends_on:
       - db

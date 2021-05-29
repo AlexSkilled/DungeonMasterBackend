@@ -48,5 +48,5 @@ flyway {
     user = 'dmadmin'
     password = '111111'
     driver = 'org.postgresql.Driver'
-	url = 'jdbc:postgresql://db:5432/dungeon-master'
+	url = 'jdbc:postgresql://localhost:5432/dungeon-master'
 }
