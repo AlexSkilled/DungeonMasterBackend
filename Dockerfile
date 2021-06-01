@@ -1,7 +1,7 @@
 FROM anapsix/alpine-java
 
-COPY ./build/libs/DungeonMaster-0.0.1-SNAPSHOT.jar /home/DungeonMaster-0.0.1-SNAPSHOT.jar
+# COPY ./build/libs/DungeonMaster-0.0.1-SNAPSHOT.jar /home/DungeonMaster-0.0.1-SNAPSHOT.jar
 
-RUN echo 'Hi, I am in your container'
+WORKDIR /app
 
-CMD ["java","-jar","/home/DungeonMaster-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","./DungeonMaster-0.0.1-SNAPSHOT.jar"]

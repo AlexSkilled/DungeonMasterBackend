@@ -36,7 +36,7 @@ public class TableGameController {
 		return new ResponseEntity<>(new TableGameDTO(entity), HttpStatus.OK);
 	}
 	
-	@PostMapping()
+	@PostMapping("/saveProgress")
 	public ResponseEntity<?> post(@RequestBody TableGameDTO dto) {
 		TableGame createdTableGame = tableGameService.ADD(new TableGame(dto));
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -44,6 +44,6 @@ public class TableGameController {
 				.buildAndExpand(createdTableGame.getId())
 				.toUri();
 		
-		return ResponseEntity.created(location).build();
+		return new ResponseEntity<>("Заебись сохранило", HttpStatus.OK);
 	}
 }

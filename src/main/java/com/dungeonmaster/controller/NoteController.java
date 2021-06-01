@@ -41,7 +41,7 @@ public class NoteController {
 		try {
 			dto = noteService.findById(id);
 		} catch (NoteWasNotFoundException e) {
-			return new ResponseEntity<>("РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ С‚Р°РєР°СЏ Р·Р°РїРёСЃСЊ", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Не нашлось такой записи", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}

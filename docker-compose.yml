@@ -4,24 +4,32 @@ services:
     build: .
     ports:
       - 8080:8080
+    volumes:
+      - ./build/libs:/app
     depends_on: 
-      - flyway
+      - db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/dungeon-master
       - SPRING_DATASOURCE_USERNAME=dmadmin
       - SPRING_DATASOURCE_PASSWORD=111111
       - SPRING_JPA_HIBERNATE_DDL_AUTO=none
-  flyway:
-    image: flyway/flyway
-    command: -url=jdbc:postgresql://db:5432/dungeon-master -schemas=dungeon-master -user=dmadmin -password=111111 -connectRetries=60 -target=1 migrate
-    depends_on:
-      - db
   db:
-    image: postgres 
+    image: postgres:13-alpine
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: dmadmin
       POSTGRES_PASSWORD: 111111
       POSTGRES_DB: dungeon-master
+  pgadmin:
+    image: fenglc/pgadmin4:2.1-python2.7-alpine
+    depends_on: 
+      - db
+    ports:
+      - 9999:5050
+    environment:
+      DEFAULT_PASSWORD: 111111
+      DEFAULT_USER: dmadmin
   
   
   
