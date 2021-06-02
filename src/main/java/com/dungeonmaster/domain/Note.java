@@ -58,4 +58,17 @@ public class Note {
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+	
 }

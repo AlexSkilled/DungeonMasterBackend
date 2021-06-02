@@ -26,12 +26,24 @@ public class NoteService {
 			this.userRepository = userRepository;
 		}
 
-		public NoteDTO createNote(NoteDTO dto, String username) {
-			Note note = new Note(dto);
-			User owner = userRepository.findByUsername(username);
+		public NoteDTO createOrUpdateNote(NoteDTO dto, String username) {
 			
-			note.setOwner(owner);
-
+			Note note;
+			User owner = userRepository.findByUsername(username);
+			if(dto.getId() != null) {
+				note = noteRepository.findById(dto.getId()).get();
+				if (owner.getId() != note.getOwner().getId()) {
+					note.setId((long) 0);
+					note.setOwner(owner);
+				}
+				note.setName(dto.getName());
+				note.setNotes(dto.getNotes());
+				
+			} else {
+				note = new Note(dto);		
+				note.setOwner(owner);
+			}
+		
 			return new NoteDTO(noteRepository.save(note));
 		}
 

@@ -1,6 +1,5 @@
 package com.dungeonmaster.controller;
 
-import java.net.URI;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.dungeonmaster.errros.NoteWasNotFoundException;
 import com.dungeonmaster.modelDto.NoteDTO;
@@ -49,13 +47,9 @@ public class NoteController {
 	@PostMapping()
 	public ResponseEntity<?> post(@RequestBody NoteDTO dto, Principal principal) {
 		System.out.println(dto.getName());
-		NoteDTO createdNote = noteService.createNote(dto, principal.getName());
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}")
-				.buildAndExpand(createdNote.getId())
-				.toUri();
+		NoteDTO createdNote = noteService.createOrUpdateNote(dto, principal.getName());
 		
-		return ResponseEntity.created(location).build();
+		return new ResponseEntity<>(createdNote.getId(), HttpStatus.OK);
 	}
 	
 	@GetMapping()
