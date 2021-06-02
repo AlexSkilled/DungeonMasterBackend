@@ -55,7 +55,7 @@ public class TableGameController {
     	String login = authentication.getName();
     	UserDTO user = userService.findByUsername(login);
     	Long id;
-		if (dto.getId() != 0) {
+		if (dto.getId() != null) {
 			id = tableGameService.updateProgress(dto, user.getId()).getId();
 		}
 		else {
