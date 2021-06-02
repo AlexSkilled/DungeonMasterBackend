@@ -54,7 +54,13 @@ public class TableGameController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     	String login = authentication.getName();
     	UserDTO user = userService.findByUsername(login);
-		Long id = tableGameService.saveProgress(dto, user.getId());
+    	Long id;
+		if (dto.getId() != 0) {
+			id = tableGameService.updateProgress(dto, user.getId()).getId();
+		}
+		else {
+			id = tableGameService.saveProgress(dto, user.getId());
+		}
 		
 		return new ResponseEntity<>(id, HttpStatus.OK);
 	}
@@ -70,17 +76,6 @@ public class TableGameController {
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
-	@PostMapping("/updateGameProgress")
-	public ResponseEntity<?> updateGameProgress(@RequestBody GameProgressDTO dto)
-	{
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    	String login = authentication.getName();
-    	UserDTO user = userService.findByUsername(login);
-
-    	GameProgressDTO resp = tableGameService.updateProgress(dto, user.getId());
-    	
-		return new ResponseEntity<>(resp, HttpStatus.OK);
-	}
 	
 	@GetMapping("/listOfSaves")
 	public ResponseEntity<?> listOfSaves(){
