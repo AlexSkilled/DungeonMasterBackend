@@ -81,4 +81,16 @@ public class TableGameController {
     	
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
+	
+	@GetMapping("/listOfSaves")
+	public ResponseEntity<?> listOfSaves(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String login = authentication.getName();
+    	UserDTO user = userService.findByUsername(login);
+    	
+    	GameProgressDTO[] saves = tableGameService.getSavesForUser(user.getId());
+    	
+		return new ResponseEntity<>(saves, HttpStatus.OK);
+	}
+	
 }

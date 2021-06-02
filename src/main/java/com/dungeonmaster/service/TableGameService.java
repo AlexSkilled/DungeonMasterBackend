@@ -1,6 +1,7 @@
 package com.dungeonmaster.service;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,16 @@ public class TableGameService {
 		Optional<GameProgress> gp = gameProgress.findById(id);
 		GameProgressDTO dto = new GameProgressDTO(gp.get());
 		return dto;
+	}
+
+	public GameProgressDTO[] getSavesForUser(Long id) {
+		List<GameProgress> gps = gameProgress.findByUserId(id);
+		GameProgressDTO[] out = new GameProgressDTO[gps.size()];
+		
+		for(int i = 0; i < gps.size(); i++) {
+			out[i] = new GameProgressDTO(gps.get(i));
+		}
+		
+		return out;
 	}
 }
