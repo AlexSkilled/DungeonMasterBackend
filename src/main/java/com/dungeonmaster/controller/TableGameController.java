@@ -57,7 +57,7 @@ public class TableGameController {
 	public ResponseEntity<?> saveGameInfo(@RequestBody TableGameDTO dto) {
 		tableGameService.ADD(new TableGame(dto));
 		
-		return new ResponseEntity<>("Заебись сохранило", HttpStatus.OK);
+		return new ResponseEntity<>("РРЅС„РѕСЂРјР°С†РёСЏ СЃРѕС…СЂР°РЅРµРЅР°", HttpStatus.OK);
 	}
 	
 	@PostMapping("/saveGameProgress")
@@ -107,6 +107,6 @@ public class TableGameController {
     	
     	tableGameService.dropSave(saveId, user.getId());
     	
-		return new ResponseEntity<>("удалено", HttpStatus.OK);
+		return new ResponseEntity<>("РЈРґР°Р»РµРЅРѕ", HttpStatus.OK);
 	}
 }

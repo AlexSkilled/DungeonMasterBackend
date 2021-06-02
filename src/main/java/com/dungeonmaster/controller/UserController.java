@@ -36,11 +36,11 @@ public class UserController {
     	} catch(InvalidUserData e) {
     		switch (e.getError()) {
     		case UserAlreadyExists:
-    			return new ResponseEntity<>(new String("Ошибка регистрации. Пользователь существует."), HttpStatus.OK);
+    			return new ResponseEntity<>(new String("РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚."), HttpStatus.OK);
     		case InvalidEmail:
-    			return new ResponseEntity<>(new String("Ошибка регистрации. Неверный Email"), HttpStatus.OK);
+    			return new ResponseEntity<>(new String("РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ Email"), HttpStatus.OK);
     		case InvalidName:
-    			return new ResponseEntity<>(new String("Ошибка регистрации. Неверное имя"), HttpStatus.OK);
+    			return new ResponseEntity<>(new String("РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ РёРјРµРЅРё"), HttpStatus.OK);
     		}
     	}
     	UserDTO user = userService.findByUsername(dto.getUsername());
