@@ -1,5 +1,10 @@
 package com.dungeonmaster.domain;
 
+
+
+import java.sql.Date;
+
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +27,13 @@ public class GameProgress {
 	private String payload;
 	@Column(name="user_id")
 	private Long userId;
-	
+	@Column
+	@Basic
+	private Date dateCreated;
+	@Column
+	@Basic
+	private Date dateLastChange;
+
 	public GameProgress() {}
 	public GameProgress(GameProgressDTO dto) {
 		gameName = dto.getGameName();
@@ -53,5 +64,18 @@ public class GameProgress {
 	}
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+	public Date getDateLastChange() {
+		return dateLastChange;
+	}
+	public void setDateLastChange(Date dateLastChange) {
+		this.dateLastChange = dateLastChange;
 	}
 }

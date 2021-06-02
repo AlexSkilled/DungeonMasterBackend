@@ -35,7 +35,7 @@ public class TableGameController {
 		this.userService = userService;
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/game/{id}")
 	public ResponseEntity<TableGameDTO> get(@PathVariable("id") long id) {
 		TableGame entity = tableGameService.getById(id)
 				.orElseThrow(()->new NoteWasNotFoundException("No Product with ID : "+id));
@@ -70,4 +70,15 @@ public class TableGameController {
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
+	@PostMapping("/updateGameProgress")
+	public ResponseEntity<?> updateGameProgress(@RequestBody GameProgressDTO dto)
+	{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String login = authentication.getName();
+    	UserDTO user = userService.findByUsername(login);
+
+    	GameProgressDTO resp = tableGameService.updateProgress(dto, user.getId());
+    	
+		return new ResponseEntity<>(resp, HttpStatus.OK);
+	}
 }

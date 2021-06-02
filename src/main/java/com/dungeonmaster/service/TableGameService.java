@@ -1,5 +1,6 @@
 package com.dungeonmaster.service;
 
+import java.sql.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,29 @@ public class TableGameService {
 		return repository.save(description);		
 	}
 	
+	public GameProgressDTO updateProgress(GameProgressDTO dto, long useId) {
+		GameProgress gp = gameProgress.findById(dto.getId()).get();
+		
+		gp.setDateLastChange(new Date(new java.util.Date().getTime()));
+		
+		gp.setPayload(dto.getPayload());
+
+		gp.setGameName(dto.getGameName());
+		
+		gp = gameProgress.save(gp);
+		
+		return new GameProgressDTO(gp);
+	}
+	
 	public Long saveProgress(GameProgressDTO dto, Long userId) {
 		GameProgress gp = new GameProgress(dto);
 		gp.setUserId(userId);
+		if (gp.getDateCreated() == null) {
+			gp.setDateCreated(new Date(new java.util.Date().getTime()));
+		}
+		
+		gp.setDateLastChange(new Date(new java.util.Date().getTime()));
+		
 		gp = gameProgress.save(gp);
 		
 		return gp.getId();
