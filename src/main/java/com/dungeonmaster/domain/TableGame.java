@@ -16,22 +16,16 @@ public class TableGame {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	
     @Column
 	private String name;
-    
     @Column
    	private String playersAmount;
-    
     @Column
    	private String shortDiscriprion;
-    
     @Column
    	private String complectation;
-    
     @Column
    	private String rools;
-    
     @Column
    	private boolean createdByUser;
     

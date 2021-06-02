@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.dungeonmaster.domain.GameProgress;
 import com.dungeonmaster.domain.TableGame;
 import com.dungeonmaster.modelDto.GameProgressDTO;
+import com.dungeonmaster.modelDto.TableGameDTO;
 import com.dungeonmaster.repository.GameProgressRepository;
 import com.dungeonmaster.repository.TableGameRepository;
 
@@ -82,6 +83,25 @@ public class TableGameService {
 
 	public void dropSave(Long saveId, Long id) {
 		gameProgress.deleteById(saveId);
+	}
+	
+	public TableGameDTO[] shortListGames() {
+		List<TableGame> games = repository.findAll();
+		TableGameDTO[] dtos = new TableGameDTO[games.size()];
+		for(int i = 0; i < games.size(); i++) {
+			dtos[i] = new TableGameDTO();
+			dtos[i].getShort(games.get(i));
+		}
+		return dtos;
+	}
+	
+	public TableGameDTO[] listGames(){
+		List<TableGame> games = repository.findAll();
+		TableGameDTO[] dtos = new TableGameDTO[games.size()];
+		for(int i = 0; i < games.size(); i++) {
+			dtos[i] = new TableGameDTO(games.get(i));
+		}
+		return dtos;
 	}
 
 }

@@ -62,4 +62,9 @@ public class TableGameDTO {
 		public boolean isCreatedByUser() {
 			return createdByUser;
 		}
+		
+		public void getShort(TableGame entity) {
+			this.id = entity.getId();
+			this.name = entity.getName();
+		}
 }

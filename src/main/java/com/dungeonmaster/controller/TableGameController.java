@@ -42,6 +42,17 @@ public class TableGameController {
 		return new ResponseEntity<>(new TableGameDTO(entity), HttpStatus.OK);
 	}
 	
+	@GetMapping("/game/shortlist")
+	public ResponseEntity<?> getShortList() {
+		TableGameDTO[] games = tableGameService.shortListGames();
+		return new ResponseEntity<>(games, HttpStatus.OK);
+	}
+	@GetMapping("/game/list")
+	public ResponseEntity<?> getList() {
+		TableGameDTO[] games = tableGameService.listGames();
+		return new ResponseEntity<>(games, HttpStatus.OK);
+	}
+	
 	@PostMapping("/saveGameInfo")
 	public ResponseEntity<?> saveGameInfo(@RequestBody TableGameDTO dto) {
 		tableGameService.ADD(new TableGame(dto));
