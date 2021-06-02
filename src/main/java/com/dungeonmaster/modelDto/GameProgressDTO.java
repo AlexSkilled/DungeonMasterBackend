@@ -51,7 +51,7 @@ public class GameProgressDTO {
 	public void setDateLastChange(Date dateLastChange) {
 		this.dateLastChange = dateLastChange;
 	}
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(long id) {
