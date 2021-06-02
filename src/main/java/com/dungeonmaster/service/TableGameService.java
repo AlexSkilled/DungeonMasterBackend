@@ -79,4 +79,9 @@ public class TableGameService {
 		
 		return out;
 	}
+
+	public void dropSave(Long saveId, Long id) {
+		gameProgress.deleteById(saveId);
+	}
+
 }

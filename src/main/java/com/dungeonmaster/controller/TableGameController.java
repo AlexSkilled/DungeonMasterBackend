@@ -93,4 +93,14 @@ public class TableGameController {
 		return new ResponseEntity<>(saves, HttpStatus.OK);
 	}
 	
+	@GetMapping("/dropSave/{saveId}")
+	public ResponseEntity<?> dropSave(@PathVariable Long saveId){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String login = authentication.getName();
+    	UserDTO user = userService.findByUsername(login);
+    	
+    	tableGameService.dropSave(saveId, user.getId());
+    	
+		return new ResponseEntity<>("удалено", HttpStatus.OK);
+	}
 }
