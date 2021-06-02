@@ -11,7 +11,6 @@ public class TableGameDTO {
 	   	private String complectation;
 	   	private String rools;
 	   	private boolean createdByUser;
-	   	private String payload;
 	   	
 		public TableGameDTO() {}
 	   	
@@ -63,13 +62,4 @@ public class TableGameDTO {
 		public boolean isCreatedByUser() {
 			return createdByUser;
 		}
-
-	   	public String getPayload() {
-			return payload;
-		}
-
-		public void setPayload(String payload) {
-			this.payload = payload;
-		}
-
 }
