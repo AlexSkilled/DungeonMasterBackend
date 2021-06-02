@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DungeonMasterApplication {
 
 	public static void main(String[] args) {
+		System.setProperty("file.encoding","UTF-8");
+		System.out.println("My project encoding is : "+ Charset.defaultCharset());
 		SpringApplication.run(DungeonMasterApplication.class, args);
 	}
 
