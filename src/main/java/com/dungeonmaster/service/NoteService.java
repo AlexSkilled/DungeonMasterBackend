@@ -50,4 +50,14 @@ public class NoteService {
 			}
 			return dtos;
 		}
+
+		public void findAndDeleteByOwnerId(Long userId, Long id) {
+			List<Note> notes = noteRepository.findByOwnerId(userId);
+			for (int i = 0; i < notes.size(); i++) {
+				if (notes.get(i).getId() == id) {
+					noteRepository.delete(notes.get(i));
+					return;
+				}
+			}
+		}
 }

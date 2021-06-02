@@ -7,7 +7,7 @@ services:
     volumes:
       - ./build/libs:/app
     depends_on: 
-      - db
+      - pgadmin
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/dungeon-master
       - SPRING_DATASOURCE_USERNAME=dmadmin

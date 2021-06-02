@@ -56,7 +56,7 @@ public class UserService implements UserDetailsService {
 			user = userRepository.findByEmail(username);
 		}
         if (user == null) {
-            throw new UsernameNotFoundException("Пользователь не найден");
+            throw new UsernameNotFoundException("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
         }
 
         return user;
@@ -70,7 +70,7 @@ public class UserService implements UserDetailsService {
 	public UserDTO findByEmail(String email) {
 		User user = (User) userRepository.findByEmail(email);
 		if (user == null) {
-			 throw new UsernameNotFoundException("Пользователь не найден");
+			 throw new UsernameNotFoundException("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
 		}
 		return new UserDTO(user);
 	}

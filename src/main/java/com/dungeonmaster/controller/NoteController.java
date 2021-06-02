@@ -41,13 +41,14 @@ public class NoteController {
 		try {
 			dto = noteService.findById(id);
 		} catch (NoteWasNotFoundException e) {
-			return new ResponseEntity<>("Не нашлось такой записи", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("РЎРѕР±С‰РµРЅРёРµ РЅРµ Р±С‹Р»Рѕ РЅР°Р№РґРµРЅРѕ", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
 	@PostMapping()
 	public ResponseEntity<?> post(@RequestBody NoteDTO dto, Principal principal) {
+		System.out.println(dto.getName());
 		NoteDTO createdNote = noteService.createNote(dto, principal.getName());
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}")
@@ -62,4 +63,12 @@ public class NoteController {
 		UserDTO user = userService.findByUsername(principal.getName());
 		return new ResponseEntity<>(noteService.findAllByOwnerId(user.getId()), HttpStatus.OK);
 	}
+	
+	@PostMapping("/drop/{id}")
+	public ResponseEntity<?> list(@PathVariable Long id, Principal principal){
+		UserDTO user = userService.findByUsername(principal.getName());
+		noteService.findAndDeleteByOwnerId(user.getId(), id);
+		return new ResponseEntity<>("ok", HttpStatus.OK);
+	}	
+	
 }
