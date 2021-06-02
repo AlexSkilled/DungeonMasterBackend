@@ -50,3 +50,9 @@ flyway {
     driver = 'org.postgresql.Driver'
 	url = 'jdbc:postgresql://localhost:5432/dungeon-master'
 }
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
