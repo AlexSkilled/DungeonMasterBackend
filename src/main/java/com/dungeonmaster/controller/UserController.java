@@ -26,12 +26,6 @@ public class UserController {
     @PostMapping("/registration")
     public ResponseEntity<?> addUser(@RequestBody UserDTO dto) {
     	try {
-			Thread.sleep(1500);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
-    	
-    	try {
     		   userService.saveUser(dto);
     	} catch(InvalidUserData e) {
     		switch (e.getError()) {

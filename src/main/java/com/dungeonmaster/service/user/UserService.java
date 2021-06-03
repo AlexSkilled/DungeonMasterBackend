@@ -104,7 +104,11 @@ public class UserService implements UserDetailsService {
         
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        
+        System.out.println();
+        System.out.println(user.getUsername());
+        System.out.println(user.getPassword());
+        System.out.println(user.getEmail());
+        System.out.println();
         userRepository.save(user);
     }
 
